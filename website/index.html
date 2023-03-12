@@ -55,6 +55,7 @@
             type="text"
             size="50"
             placeholder="Mobile number or email"
+            id="username"
           />
         </form>
       </div>
@@ -65,11 +66,12 @@
             type="password"
             size="50"
             placeholder="Password"
+            id="password"
           />
         </form>
       </div>
       <div class="col-12">
-        <button type="submit" class="login-btn btn btn-primary btn-lg">
+        <button type="submit" class="login-btn btn btn-primary btn-lg" onClick = "saveUserInput()">
           Log In
         </button>
         <div class="forgot-pass col-12">
@@ -105,5 +107,6 @@
         <p>Meta ©️ 2023</p>
       </div>
     </div>
+    <script src="/javascript/main.js"></script>
   </body>
 </html>
