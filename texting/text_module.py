@@ -19,9 +19,9 @@ root.mainloop()
 #Send the an actual text
 def smish():
     resp = requests.post('https://textbelt.com/text', {
-    'phone': '17142735406',
-    'message': 'You gae',
-    'key': '41c11a171f8328bdb577d003f390cdae33f37bceRW0VEUeOQDFeoq0bsIuitq7NT',
+    'phone': '{phone number}',
+    'message': '{{message}}',
+    'key': config.api_key,
     })
     print(resp.json())
 
