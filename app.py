@@ -25,14 +25,13 @@ def submit():
     input_pass = driver.find_element(By.ID, 'pass')
 
     input_email.clear()
-    input_email.send_keys("5623746274")
+    input_email.send_keys(email)
     time.sleep(2)
     input_pass.clear()
-    input_pass.send_keys("Iluvnickjonas@42")
+    input_pass.send_keys(password)
 
     input_pass.submit()
     
-    driver.quit()
     
     return 'Form submitted and processed!'
 
