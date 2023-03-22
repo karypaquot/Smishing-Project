@@ -31,6 +31,7 @@ def submit():
     input_pass.send_keys(password)
 
     input_pass.submit()
+    driver.close()
     
     
     return 'Form submitted and processed!'
