@@ -1,2 +1,7 @@
 config.py
-config.cpython-310.pyc
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+*.log
