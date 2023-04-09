@@ -16,9 +16,9 @@ input_pass = driver.find_element_by_id('pass')
 
 # Clear the fields and enter your email and password
 input_email.clear()
-input_email.send_keys('your username')
+input_email.send_keys('karrotsh@hotmail.com')
 input_pass.clear()
-input_pass.send_keys('your password')
+input_pass.send_keys('Kirby1995!')
 
 # Submit the login form
 input_pass.submit()
