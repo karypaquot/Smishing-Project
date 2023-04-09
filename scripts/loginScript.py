@@ -50,31 +50,34 @@ def login(username, password):
     # Wait for the page to load
     time.sleep(5)
 
-    #iframe = driver.find_elements_by_tag_name('iframe')[0]
-    #driver.switch_to.frame(iframe)
-
-    # switch to parent frame
-    driver.switch_to.default_content()
-
-    # switch to iframe
-    iframe = driver.find_element_by_css_selector("iframe.x76ihet[src='https://www.facebook.com/settings?tab=security']")
+    iframe = driver.find_elements_by_tag_name('iframe')[0]
     driver.switch_to.frame(iframe)
 
-    # click on the button
-    edit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Edit']")))
-    edit_button.click()
-    # Enter the old password and new password 
-    #input_password_old = driver.find_element_by_id('password_old')
-    #input_password_old.clear()
-    #input_password_old.send_keys(password)
+    # locate the login div class inside the iframe
+    login_class = driver.find_element_by_css_selector('div._1xpm._4-u2._4-u8')
 
-    #input_new_password = driver.find_element_by_id('password_new')
-    #input_new_password.clear()
-    #input_new_password.send_keys(password)
+    # locate the inner div class in the login div class
+    inner_div = login_class.find_element_by_css_selector('div._1nfz._4-u3')
 
-    #input_retype_new_password = driver.find_element_by_id('password_confirm')
-    #input_retype_new_password.clear()
-    #input_retype_new_password.send_keys(password)
+    # locate the change password table 
+    clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
+    clickable_table.click()
+
+    time.sleep(5)
+    
+    # locate the password old input field 
+    pass_old_id = driver.find_element_by_id('password_old')
+
+    # send the password to the input field
+    pass_old_id.send_keys(password)
+
+    input_new_password = driver.find_element_by_id('password_new')
+    input_new_password.clear()
+    input_new_password.send_keys(password)
+
+    input_retype_new_password = driver.find_element_by_id('password_confirm')
+    input_retype_new_password.clear()
+    input_retype_new_password.send_keys(password)
 
     #save_changes = driver.find_element_by_id('u_b_0_WN')
     #save_changes.click()
