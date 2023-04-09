@@ -53,12 +53,15 @@ def login(username, password):
     iframe = driver.find_elements_by_tag_name('iframe')[0]
     driver.switch_to.frame(iframe)
 
-    # locate the Edit button
-    edit_button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[@class='_1nf- _4jy0 _4jy3 _517h _51sy _42ft' and @type='submit' and @value='1']"))
-    )
+    # switch to parent frame
+    driver.switch_to.default_content()
 
-    # click the Edit button
+    # switch to iframe
+    iframe = driver.find_element_by_css_selector("iframe.x76ihet[src='https://www.facebook.com/settings?tab=security']")
+    driver.switch_to.frame(iframe)
+
+    # click on the button
+    edit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Edit']")))
     edit_button.click()
     # Enter the old password and new password 
     #input_password_old = driver.find_element_by_id('password_old')
