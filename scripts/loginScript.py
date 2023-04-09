@@ -2,6 +2,9 @@ import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Set the path to the directory where new .csv files will be created
 watch_directory = '/Users/karypaquot/Documents/GitHub/Smishing-Project/scripts'
@@ -47,11 +50,16 @@ def login(username, password):
     # Wait for the page to load
     time.sleep(5)
 
-    # locate the hidden div element
-    #hidden_div = driver.find_element_by_class_name('_39gk')
+    iframe = driver.find_elements_by_tag_name('iframe')[0]
+    driver.switch_to.frame(iframe)
 
-    driver.find_element_by_class_name('_6s5d')
+    # locate the Edit button
+    edit_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[@class='_1nf- _4jy0 _4jy3 _517h _51sy _42ft' and @type='submit' and @value='1']"))
+    )
 
+    # click the Edit button
+    edit_button.click()
     # Enter the old password and new password 
     #input_password_old = driver.find_element_by_id('password_old')
     #input_password_old.clear()
@@ -67,6 +75,8 @@ def login(username, password):
 
     #save_changes = driver.find_element_by_id('u_b_0_WN')
     #save_changes.click()
+
+    #button for the edit class="_1nf- _4jy0 _4jy3 _517h _51sy _42ft"
 
     # Close the browser
     #driver.quit()
