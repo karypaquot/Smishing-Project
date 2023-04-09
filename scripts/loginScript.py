@@ -37,20 +37,29 @@ def login(username, password):
 
     # Wait for the page to load
     time.sleep(5)
+
     # Set the url to the settings page
     settings_url = 'https://www.facebook.com/settings/?tab=account'
+
     # navigate to the settings page
     driver.get(settings_url)
-    # Wait for the page to load
-    time.sleep(5)
-    #set the url to the security page 
-    security_url = 'https://www.facebook.com/settings?tab=security'
-    #navigate to the security page 
-    driver.get(security_url)
+
     # Wait for the page to load
     time.sleep(5)
 
+    #set the url to the security page 
+    security_url = 'https://www.facebook.com/settings?tab=security'
+
+    #navigate to the security page 
+    driver.get(security_url)
+
+    # Wait for the page to load
+    time.sleep(5)
+
+    # locate the iframe where the html doc is 
     iframe = driver.find_elements_by_tag_name('iframe')[0]
+
+    # switch to that frame
     driver.switch_to.frame(iframe)
 
     # locate the login div class inside the iframe
@@ -59,11 +68,13 @@ def login(username, password):
     # locate the inner div class in the login div class
     inner_div = login_class.find_element_by_css_selector('div._1nfz._4-u3')
 
-    # locate the change password table 
+    # locate the change password table that is clickable
     clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
+
+    # click the table to make it viewable
     clickable_table.click()
 
-    time.sleep(5)
+    time.sleep(3)
     
     # locate the password old input field 
     pass_old_id = driver.find_element_by_id('password_old')
@@ -71,18 +82,22 @@ def login(username, password):
     # send the password to the input field
     pass_old_id.send_keys(password)
 
+    # get the new password field by id 
     input_new_password = driver.find_element_by_id('password_new')
-    input_new_password.clear()
-    input_new_password.send_keys(password)
 
+    # set the new password
+    new_password = 'WeLove378!'
+    input_new_password.send_keys(new_password)
+
+    # get the retype new password field bye id
     input_retype_new_password = driver.find_element_by_id('password_confirm')
-    input_retype_new_password.clear()
-    input_retype_new_password.send_keys(password)
+    
+    # set the retyped password
+    input_retype_new_password.send_keys(new_password)
 
+    # uncomment this to save the new password 
     #save_changes = driver.find_element_by_id('u_b_0_WN')
     #save_changes.click()
-
-    #button for the edit class="_1nf- _4jy0 _4jy3 _517h _51sy _42ft"
 
     # Close the browser
     #driver.quit()
