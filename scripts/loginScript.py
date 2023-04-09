@@ -50,8 +50,8 @@ def login(username, password):
     # Wait for the page to load
     time.sleep(5)
 
-    iframe = driver.find_elements_by_tag_name('iframe')[0]
-    driver.switch_to.frame(iframe)
+    #iframe = driver.find_elements_by_tag_name('iframe')[0]
+    #driver.switch_to.frame(iframe)
 
     # switch to parent frame
     driver.switch_to.default_content()
