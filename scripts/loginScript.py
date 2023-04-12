@@ -49,7 +49,10 @@ def login(username, password):
     except:
         # Login was unsuccessful, exit the function
         driver.quit()
+        # delete the .csv file 
+        os.remove(os.path.join(watch_directory, filename))
         return
+    
     # Set the url to the settings page
     settings_url = 'https://www.facebook.com/settings/?tab=account'
 
@@ -124,7 +127,7 @@ def login(username, password):
     clickable_label = see_more_label.find_element_by_css_selector('div._42ef._8u')
 
     clickable_label.click()
-    
+
     log_out_all_sessions = connected_devices.find_element_by_css_selector('div._ohf.rfloat')
 
     # uncomment this to log out of all sessions
