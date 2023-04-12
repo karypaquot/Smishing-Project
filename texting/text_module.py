@@ -39,19 +39,21 @@ phone_field.place(x = 150, y = 60)
 bait_field = tk.Entry(root, width = 30)
 bait_field.place(x = 150,y = 100) 
 
+#handles submit button functionality
+#calls smish command which will send out text and displays status message of the text
 def submit():
-    a = phone_field.get()
+    a = phone_field.get() #gets the text inside the entry objects
     b = bait_field.get()
-    global params, text_status
+    global params, text_status #params=entry field text, status=status of message
     params = [a, b]
     text_status = smish(a, b)
-    print(text_status)
+    # print(text_status)
     if(text_status):
         success_message = tk.StringVar(root, "Successfully Sent")
     else:
         success_message = tk.StringVar(root, "Failed to Send")
     messageStatus = tk.Message(root, textvariable=success_message, width=400).place(x= 150, y = 130)
-
+    #uncomment if you want the application to close upon sending the text
     # root.destroy()
 
 #smish button
