@@ -116,7 +116,7 @@ def login(username, password):
 
     # LOG OUT OF ALL DEVICES 
 
-    #locate when you're logged in div class 
+    # locate when you're logged in div class 
     connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
 
     see_more_label = connected_devices.find_element_by_css_selector('div._4h8e._4-u3')
@@ -124,6 +124,7 @@ def login(username, password):
     clickable_label = see_more_label.find_element_by_css_selector('div._42ef._8u')
 
     clickable_label.click()
+    
     log_out_all_sessions = connected_devices.find_element_by_css_selector('div._ohf.rfloat')
 
     # uncomment this to log out of all sessions
