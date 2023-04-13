@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-#from selenium.webdriver.support.ui import WebDriverWait
-#from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Set the path to the directory where new .csv files will be created
 watch_directory = 'C:/Users/brave/Desktop/Smishing/Smishing-Project-Karina-s-Branch/scripts'
@@ -49,8 +49,9 @@ def login(username, password):
 
     # Wait for the page to load and check if the login was successful
     try:
-        # Find the first element matching the CSS selector
-        success_element = driver.find_element(By.CSS_SELECTOR, 'html._9dls.__fb-light-mode')
+        success_element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'html._9dls.__fb-light-mode'))
+        )
     except:
         # Login was unsuccessful, exit the function
         driver.quit()
@@ -83,7 +84,6 @@ def login(username, password):
     # Switch to that frame
     driver.switch_to.frame(iframe)
 
-
     # locate the login div class inside the iframe
     login_class = driver.find_element(By.CSS_SELECTOR, 'div._1xpm._4-u2._4-u8')
 
@@ -109,38 +109,82 @@ def login(username, password):
 
     # set the new password
     new_password = 'WeLove378!!'
-    input_new_password.send_keys(new_password)
 
-    # get the retype new password field bye id
+    # uncomment this to acutally change password for DEMO
+    #input_new_password.send_keys(new_password)
+
+    # leave this uncommented for TESTING
+    input_new_password.send_keys(password)
+
+    # get the retype new password field by id
     input_retype_new_password = driver.find_element(By.ID, 'password_confirm')
     
     # set the retyped password
-    input_retype_new_password.send_keys(new_password)
+    # uncomment this to actually change new password for DEMO
+    #input_retype_new_password.send_keys(new_password)
 
-    # uncomment this to save the new password 
-    #save_changes = driver.find_element(By.ID, 'u_b_0_WN')
+    # leave this uncommented for TESTING
+    input_retype_new_password.send_keys(password)
 
+    time.sleep(5)
+
+    # Path to finding the Save new password
+    outer_div = login_class.find_element(By.CSS_SELECTOR, 'div._4p8x._4-u3')
+    inner_div_1 = outer_div.find_element(By.CSS_SELECTOR,'div._39gk')
+    save_changes = inner_div_1.find_element(By.CSS_SELECTOR,'label.submit.uiButton.uiButtonConfirm')
+
+    # Uncomment this to save changes in DEMO
     #save_changes.click()
     
     # LOG OUT OF ALL DEVICES 
-    # locate when you're logged in div class 
-    connected_devices = driver.find_element(By.CSS_SELECTOR, 'div._k7f._15va._4-u2._4-u8')
-    
-    # locate the see more label in the devices segment
+    # locates the connected devices fragment
+    connected_devices = driver.find_element(By.CSS_SELECTOR,'div._k7f._15va._4-u2._4-u8')
+
+    # this is the see more label 
     see_more_label = connected_devices.find_element(By.CSS_SELECTOR,'div._4h8e._4-u3')
 
-    # locate the clickable label in the see more element
+    # this is the clickable label to see more logged in devices
     clickable_label = see_more_label.find_element(By.CSS_SELECTOR,'div._42ef._8u')
 
-    # click it to expand all the connected devices
+    # this is the element that expands all logged in devices 
     clickable_label.click()
 
-    # locate the log out of all sessions button
-    log_out_all_sessions = connected_devices.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+    # wait for page to load
+    time.sleep(5)
 
-    # uncomment this to log out of all sessions
-    #log_out_all_sessions.click()
-    
+    # need to scroll down to do this 
+    # this locates the outer div to log out of all devices
+    next_div = see_more_label.find_element(By.CSS_SELECTOR,'div.clearfix')
+
+    # this is the inner div that holds the log out of all sessions button
+    log_out_all_sessions = next_div.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    # click this to log out of all sessions
+    log_out_all_sessions.click()
+
+    # wait for page to load
+    time.sleep(5)
+
+    # outer container of the pop up frame
+    outer_popup_frame = driver.find_element(By.CSS_SELECTOR,'div._10.uiLayer._4-hy._3qw')
+
+    # this is the frame that pops up after we click "log out of all sessions"
+    popup_frame = outer_popup_frame.find_element(By.CSS_SELECTOR,'div._4t2a')
+
+    # this is the inner frame 
+    inner_frame = popup_frame.find_element(By.CSS_SELECTOR,'div._5a8u._5lnf.uiOverlayFooter')
+
+    # this is the outer log out div element
+    logout_div = inner_frame.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    # This is the clickable log out button
+    logout_button = logout_div.find_element(By.CSS_SELECTOR,'a.layerCancel._4jy0._4jy3._4jy1._51sy.selected._42ft')
+
+    # click this to log out of all devices 
+    logout_button.click()
+
+    time.sleep(5)
+
     # Keep the window open
     input('Press any key to exit...')
     
