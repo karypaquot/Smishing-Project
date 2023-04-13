@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
 
 # Set the path to the directory where new .csv files will be created
 watch_directory = 'C:/Users/brave/Desktop/Smishing/Smishing-Project-Karina-s-Branch/scripts'
