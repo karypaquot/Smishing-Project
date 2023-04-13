@@ -14,8 +14,12 @@ conn = mysql.connector.connect(
 )
 
 # Get the latest row ID that we processed
-last_id_processed_str = open('last_id_processed.txt', 'r').read().strip()
-last_id_processed = int(last_id_processed_str) if last_id_processed_str else 0
+last_id_processed = 0
+if os.path.isfile('last_id_processed.txt'):
+    with open('last_id_processed.txt', 'r') as f:
+        last_id_processed_str = f.read().strip()
+        if last_id_processed_str:
+            last_id_processed = int(last_id_processed_str)
 
 
 # Query the database for new rows since the last processed ID

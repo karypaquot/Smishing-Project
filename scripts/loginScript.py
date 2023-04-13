@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 # Set the path to the directory where new .csv files will be created
-watch_directory = 'C:/Users/brave/Desktop/Smishing/Smishing-Project-Karina-s-Branch/scripts'
+watch_directory = 'C:/Users/brave/OneDrive/Desktop/Smishing-Project/scripts'
 
 # Set the URL of the login page
 login_url = 'https://www.facebook.com'
