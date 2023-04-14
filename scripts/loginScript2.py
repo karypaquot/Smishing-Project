@@ -88,6 +88,11 @@ def login(username, password):
     # locates the connected devices fragment
     connected_devices = driver.find_element(By.CSS_SELECTOR,'div._k7f._15va._4-u2._4-u8')
 
+    # scroll to connected devices 
+    driver.execute_script("arguments[0].scrollIntoView();", connected_devices)
+
+    time.sleep(5)
+
     # this is the see more label 
     see_more_label = connected_devices.find_element(By.CSS_SELECTOR,'div._4h8e._4-u3')
 
@@ -106,6 +111,10 @@ def login(username, password):
 
     # this is the inner div that holds the log out of all sessions button
     log_out_all_sessions = next_div.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    driver.execute_script("arguments[0].scrollIntoView();", log_out_all_sessions)
+
+    time.sleep(3)
 
     # click this to log out of all sessions
     log_out_all_sessions.click()
@@ -131,7 +140,7 @@ def login(username, password):
     # click this to log out of all devices 
     logout_button.click()
 
-    time.sleep(5)
+    time.sleep(3)
 
     # locate the login div class inside the iframe
     login_class = driver.find_element(By.CSS_SELECTOR, 'div._1xpm._4-u2._4-u8')
@@ -141,6 +150,8 @@ def login(username, password):
 
     # locate the change password table that is clickable
     clickable_table = inner_div.find_element(By.CSS_SELECTOR, 'table._4p8y.uiGrid._51mz')
+
+    driver.execute_script("arguments[0].scrollIntoView();", clickable_table)
 
     # click the table to make it viewable
     clickable_table.click()
