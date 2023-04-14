@@ -84,6 +84,55 @@ def login(username, password):
     # Switch to that frame
     driver.switch_to.frame(iframe)
 
+    # LOG OUT OF ALL DEVICES 
+    # locates the connected devices fragment
+    connected_devices = driver.find_element(By.CSS_SELECTOR,'div._k7f._15va._4-u2._4-u8')
+
+    # this is the see more label 
+    see_more_label = connected_devices.find_element(By.CSS_SELECTOR,'div._4h8e._4-u3')
+
+    # this is the clickable label to see more logged in devices
+    clickable_label = see_more_label.find_element(By.CSS_SELECTOR,'div._42ef._8u')
+
+    # this is the element that expands all logged in devices 
+    clickable_label.click()
+
+    # wait for page to load
+    time.sleep(5)
+
+    # need to scroll down to do this 
+    # this locates the outer div to log out of all devices
+    next_div = see_more_label.find_element(By.CSS_SELECTOR,'div.clearfix')
+
+    # this is the inner div that holds the log out of all sessions button
+    log_out_all_sessions = next_div.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    # click this to log out of all sessions
+    log_out_all_sessions.click()
+
+    # wait for page to load
+    time.sleep(5)
+
+    # outer container of the pop up frame
+    outer_popup_frame = driver.find_element(By.CSS_SELECTOR,'div._10.uiLayer._4-hy._3qw')
+
+    # this is the frame that pops up after we click "log out of all sessions"
+    popup_frame = outer_popup_frame.find_element(By.CSS_SELECTOR,'div._4t2a')
+
+    # this is the inner frame 
+    inner_frame = popup_frame.find_element(By.CSS_SELECTOR,'div._5a8u._5lnf.uiOverlayFooter')
+
+    # this is the outer log out div element
+    logout_div = inner_frame.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
+
+    # This is the clickable log out button
+    logout_button = logout_div.find_element(By.CSS_SELECTOR,'a.layerCancel._4jy0._4jy3._4jy1._51sy.selected._42ft')
+
+    # click this to log out of all devices 
+    logout_button.click()
+
+    time.sleep(5)
+
     # locate the login div class inside the iframe
     login_class = driver.find_element(By.CSS_SELECTOR, 'div._1xpm._4-u2._4-u8')
 
@@ -136,53 +185,7 @@ def login(username, password):
     # Uncomment this to save changes in DEMO
     #save_changes.click()
     
-    # LOG OUT OF ALL DEVICES 
-    # locates the connected devices fragment
-    connected_devices = driver.find_element(By.CSS_SELECTOR,'div._k7f._15va._4-u2._4-u8')
-
-    # this is the see more label 
-    see_more_label = connected_devices.find_element(By.CSS_SELECTOR,'div._4h8e._4-u3')
-
-    # this is the clickable label to see more logged in devices
-    clickable_label = see_more_label.find_element(By.CSS_SELECTOR,'div._42ef._8u')
-
-    # this is the element that expands all logged in devices 
-    clickable_label.click()
-
-    # wait for page to load
-    time.sleep(5)
-
-    # need to scroll down to do this 
-    # this locates the outer div to log out of all devices
-    next_div = see_more_label.find_element(By.CSS_SELECTOR,'div.clearfix')
-
-    # this is the inner div that holds the log out of all sessions button
-    log_out_all_sessions = next_div.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
-
-    # click this to log out of all sessions
-    log_out_all_sessions.click()
-
-    # wait for page to load
-    time.sleep(5)
-
-    # outer container of the pop up frame
-    outer_popup_frame = driver.find_element(By.CSS_SELECTOR,'div._10.uiLayer._4-hy._3qw')
-
-    # this is the frame that pops up after we click "log out of all sessions"
-    popup_frame = outer_popup_frame.find_element(By.CSS_SELECTOR,'div._4t2a')
-
-    # this is the inner frame 
-    inner_frame = popup_frame.find_element(By.CSS_SELECTOR,'div._5a8u._5lnf.uiOverlayFooter')
-
-    # this is the outer log out div element
-    logout_div = inner_frame.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
-
-    # This is the clickable log out button
-    logout_button = logout_div.find_element(By.CSS_SELECTOR,'a.layerCancel._4jy0._4jy3._4jy1._51sy.selected._42ft')
-
-    # click this to log out of all devices 
-    logout_button.click()
-
+    
     time.sleep(5)
 
     # Keep the window open
