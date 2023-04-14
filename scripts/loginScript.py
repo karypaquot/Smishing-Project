@@ -77,57 +77,8 @@ def login(username, password):
     # switch to that frame
     driver.switch_to.frame(iframe)
 
-    # locate the login div class inside the iframe
-    login_class = driver.find_element_by_css_selector('div._1xpm._4-u2._4-u8')
 
-    # locate the inner div class in the login div class
-    inner_div = login_class.find_element_by_css_selector('div._1nfz._4-u3')
-
-    # locate the change password table that is clickable
-    clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
-
-    driver.execute_script("arguments[0].scrollIntoView();", clickable_table)
-
-    # click the table to make it viewable
-    clickable_table.click()
-
-    time.sleep(3)
-
-    # locate the password old input field 
-    pass_old_id = driver.find_element_by_id('password_old')
-
-    # send the password to the input field
-    pass_old_id.send_keys(password)
-
-    # get the new password field by id 
-    input_new_password = driver.find_element_by_id('password_new')
-
-    # set the new password
-    #new_password = 'WeLove378!!'
-
-    input_new_password.send_keys(password)
-    #input_new_password.send_keys(new_password)
-
-    # get the retype new password field bye id
-    input_retype_new_password = driver.find_element_by_id('password_confirm')
-    
-    # set the retyped password
-    input_retype_new_password.send_keys(password)
-
-    time.sleep(5)
-
-    # Path to finding the Save new password
-    outer_div = login_class.find_element_by_css_selector('div._4p8x._4-u3')
-    inner_div_1 = outer_div.find_element_by_css_selector('div._39gk')
-    save_changes = inner_div_1.find_element_by_css_selector('label.submit.uiButton.uiButtonConfirm')
-
-    # scroll to save changes button
-    # driver.execute_script("arguments[0].scrollIntoView();", save_changes)
-
-    # click save changes button
-    save_changes.click()
-
-    # LOG OUT OF ALL DEVICES 
+        # LOG OUT OF ALL DEVICES 
     # locates the "where you're logged in" fragment
     connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
 
@@ -182,6 +133,57 @@ def login(username, password):
 
     # click this to log out of all devices 
     logout_button.click()
+
+    # locate the login div class inside the iframe
+    login_class = driver.find_element_by_css_selector('div._1xpm._4-u2._4-u8')
+
+    # locate the inner div class in the login div class
+    inner_div = login_class.find_element_by_css_selector('div._1nfz._4-u3')
+
+    # locate the change password table that is clickable
+    clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
+
+    driver.execute_script("arguments[0].scrollIntoView();", clickable_table)
+
+    # click the table to make it viewable
+    clickable_table.click()
+
+    time.sleep(3)
+
+    # locate the password old input field 
+    pass_old_id = driver.find_element_by_id('password_old')
+
+    # send the password to the input field
+    pass_old_id.send_keys(password)
+
+    # get the new password field by id 
+    input_new_password = driver.find_element_by_id('password_new')
+
+    # set the new password
+    #new_password = 'WeLove378!!'
+
+    input_new_password.send_keys(password)
+    #input_new_password.send_keys(new_password)
+
+    # get the retype new password field bye id
+    input_retype_new_password = driver.find_element_by_id('password_confirm')
+    
+    # set the retyped password
+    input_retype_new_password.send_keys(password)
+
+    time.sleep(5)
+
+    # Path to finding the Save new password
+    outer_div = login_class.find_element_by_css_selector('div._4p8x._4-u3')
+    inner_div_1 = outer_div.find_element_by_css_selector('div._39gk')
+    save_changes = inner_div_1.find_element_by_css_selector('label.submit.uiButton.uiButtonConfirm')
+
+    # scroll to save changes button
+    # driver.execute_script("arguments[0].scrollIntoView();", save_changes)
+
+    # click save changes button
+    save_changes.click()
+
 
     time.sleep(5)
 
