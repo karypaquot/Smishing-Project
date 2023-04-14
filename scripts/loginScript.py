@@ -86,11 +86,13 @@ def login(username, password):
     # locate the change password table that is clickable
     clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
 
+    driver.execute_script("arguments[0].scrollIntoView();", clickable_table)
+
     # click the table to make it viewable
     clickable_table.click()
 
     time.sleep(3)
-    
+
     # locate the password old input field 
     pass_old_id = driver.find_element_by_id('password_old')
 
@@ -118,12 +120,21 @@ def login(username, password):
     outer_div = login_class.find_element_by_css_selector('div._4p8x._4-u3')
     inner_div_1 = outer_div.find_element_by_css_selector('div._39gk')
     save_changes = inner_div_1.find_element_by_css_selector('label.submit.uiButton.uiButtonConfirm')
+
+    # scroll to save changes button
+    # driver.execute_script("arguments[0].scrollIntoView();", save_changes)
+
+    # click save changes button
     save_changes.click()
 
     # LOG OUT OF ALL DEVICES 
-    # locates the connected devices fragment
+    # locates the "where you're logged in" fragment
     connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
 
+    # scroll to connected devices 
+    driver.execute_script("arguments[0].scrollIntoView();", connected_devices)
+
+    time.sleep(5)
     # this is the see more label 
     see_more_label = connected_devices.find_element_by_css_selector('div._4h8e._4-u3')
 
@@ -137,11 +148,16 @@ def login(username, password):
     time.sleep(5)
 
     # need to scroll down to do this 
+
     # this locates the outer div to log out of all devices
     next_div = see_more_label.find_element_by_css_selector('div.clearfix')
 
     # this is the inner div that holds the log out of all sessions button
     log_out_all_sessions = next_div.find_element_by_css_selector('div._ohf.rfloat')
+
+    driver.execute_script("arguments[0].scrollIntoView();", log_out_all_sessions)
+
+    time.sleep(3)
 
     # click this to log out of all sessions
     log_out_all_sessions.click()
