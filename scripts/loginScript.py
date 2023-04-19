@@ -78,7 +78,7 @@ def login(username, password):
     driver.switch_to.frame(iframe)
 
 
-        # LOG OUT OF ALL DEVICES 
+    # LOG OUT OF ALL DEVICES 
     # locates the "where you're logged in" fragment
     connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
 
