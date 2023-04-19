@@ -9,7 +9,8 @@ def smish(phoneNumber, msg):
     'message': msg,
     'key': config.api_key,
     })
-    print(resp)
+    
+    # print(resp)
 
 
 def main():
