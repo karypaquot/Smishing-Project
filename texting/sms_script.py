@@ -12,14 +12,15 @@ def create_subscriber(subscriber):
         "firstName": subscriber['first_name'],
         "lastName": subscriber['last_name'],
         "number": subscriber['phone_number'],
-        "email": subscriber['email'],
-        "groupIds": [175380], # this is the group ID for 'Campaign'
-        "subscriberFieldIds": {}
+        #"email": subscriber['email'],
+        "groupIds": [175380] # this is the group ID for 'Campaign'
+        #"subscriberFieldIds": {}
     }]
     response = requests.post(url + 'subscribers/bulk', headers=headers, json=data)
     return response.json()
 
 # Define function to send a message to all subscribers
+# Endpoint URL is limited to 15 requests per 15 seconds
 def send_message(message):
     data = {
         "allSubscribers": True,
