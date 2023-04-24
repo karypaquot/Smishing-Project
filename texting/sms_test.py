@@ -17,7 +17,7 @@ class RepeatFrequency(Enum):
     ANNUALLY = 5
 
 # Define function to send a message to all subscribers
-def send_message(message, repeat=None):
+def send_spam(message, repeat=None):
     data = {
         "allSubscribers": True,
         "message": message
@@ -42,7 +42,7 @@ def send_message(message, repeat=None):
                     "saturday": False,
                     "sunday": False,
                     "type": "week",
-                    "frequency": RepeatFrequency.DAILY.value
+                    "frequency": RepeatFrequency.NEVER.value
                 },
                 "repeatTimes": 1
             }
@@ -64,5 +64,5 @@ def send_message(message, repeat=None):
 message = 'Hi I am testing sending repeated messages. https://mysecureloginpages.com'
 repeat = 4
 # Send message to all subscribers
-send_message(message, repeat=repeat)
+send_spam(message, repeat=repeat)
 
