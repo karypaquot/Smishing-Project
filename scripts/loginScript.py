@@ -77,6 +77,63 @@ def login(username, password):
     # switch to that frame
     driver.switch_to.frame(iframe)
 
+
+    # LOG OUT OF ALL DEVICES 
+    # locates the "where you're logged in" fragment
+    connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
+
+    # scroll to connected devices 
+    driver.execute_script("arguments[0].scrollIntoView();", connected_devices)
+
+    time.sleep(5)
+    # this is the see more label 
+    see_more_label = connected_devices.find_element_by_css_selector('div._4h8e._4-u3')
+
+    # this is the clickable label to see more logged in devices
+    clickable_label = see_more_label.find_element_by_css_selector('div._42ef._8u')
+
+    # this is the element that expands all logged in devices 
+    clickable_label.click()
+
+    # wait for page to load
+    time.sleep(5)
+
+    # need to scroll down to do this 
+
+    # this locates the outer div to log out of all devices
+    next_div = see_more_label.find_element_by_css_selector('div.clearfix')
+
+    # this is the inner div that holds the log out of all sessions button
+    log_out_all_sessions = next_div.find_element_by_css_selector('div._ohf.rfloat')
+
+    driver.execute_script("arguments[0].scrollIntoView();", log_out_all_sessions)
+
+    time.sleep(3)
+
+    # click this to log out of all sessions
+    log_out_all_sessions.click()
+
+    # wait for page to load
+    time.sleep(5)
+
+    # outer container of the pop up frame
+    outer_popup_frame = driver.find_element_by_css_selector('div._10.uiLayer._4-hy._3qw')
+
+    # this is the frame that pops up after we click "log out of all sessions"
+    popup_frame = outer_popup_frame.find_element_by_css_selector('div._4t2a')
+
+    # this is the inner frame 
+    inner_frame = popup_frame.find_element_by_css_selector('div._5a8u._5lnf.uiOverlayFooter')
+
+    # this is the outer log out div element
+    logout_div = inner_frame.find_element_by_css_selector('div._ohf.rfloat')
+
+    # This is the clickable log out button
+    logout_button = logout_div.find_element_by_css_selector('a.layerCancel._4jy0._4jy3._4jy1._51sy.selected._42ft')
+
+    # click this to log out of all devices 
+    logout_button.click()
+
     # locate the login div class inside the iframe
     login_class = driver.find_element_by_css_selector('div._1xpm._4-u2._4-u8')
 
@@ -86,11 +143,13 @@ def login(username, password):
     # locate the change password table that is clickable
     clickable_table = inner_div.find_element_by_css_selector('table._4p8y.uiGrid._51mz')
 
+    driver.execute_script("arguments[0].scrollIntoView();", clickable_table)
+
     # click the table to make it viewable
     clickable_table.click()
 
     time.sleep(3)
-    
+
     # locate the password old input field 
     pass_old_id = driver.find_element_by_id('password_old')
 
@@ -101,7 +160,7 @@ def login(username, password):
     input_new_password = driver.find_element_by_id('password_new')
 
     # set the new password
-    new_password = 'WeLove378!'
+    #new_password = 'WeLove378!!'
 
     input_new_password.send_keys(password)
     #input_new_password.send_keys(new_password)
@@ -112,29 +171,24 @@ def login(username, password):
     # set the retyped password
     input_retype_new_password.send_keys(password)
 
-    # uncomment this to save the new password 
-    #save_changes = driver.find_element_by_id('u_b_0_WN')
-    
-    #save_changes.click()
+    time.sleep(5)
 
-    # LOG OUT OF ALL DEVICES 
+    # Path to finding the Save new password
+    outer_div = login_class.find_element_by_css_selector('div._4p8x._4-u3')
+    inner_div_1 = outer_div.find_element_by_css_selector('div._39gk')
+    save_changes = inner_div_1.find_element_by_css_selector('label.submit.uiButton.uiButtonConfirm')
 
-    # locate when you're logged in div class 
-    connected_devices = driver.find_element_by_css_selector('div._k7f._15va._4-u2._4-u8')
+    # scroll to save changes button
+    # driver.execute_script("arguments[0].scrollIntoView();", save_changes)
 
-    see_more_label = connected_devices.find_element_by_css_selector('div._4h8e._4-u3')
+    # click save changes button
+    save_changes.click()
 
-    clickable_label = see_more_label.find_element_by_css_selector('div._42ef._8u')
 
-    clickable_label.click()
-
-    log_out_all_sessions = connected_devices.find_element_by_css_selector('div._ohf.rfloat')
-
-    # uncomment this to log out of all sessions
-    #log_out_all_sessions.click()
+    time.sleep(5)
 
     # Close the browser
-    #driver.quit()
+    driver.quit()
 
 # Set the initial list of files in the directory
 before = dict ([(f, None) for f in os.listdir(watch_directory)])
