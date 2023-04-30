@@ -12,9 +12,6 @@ def smish(phoneNumber, msg):
     })
     return(resp.json()["success"])
 
-# phone = 1234
-# message = "default"
-
 #inialize root
 root = tk.Tk()
 root.title("SMShy")
