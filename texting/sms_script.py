@@ -1,3 +1,4 @@
+# Author: Karina Hernandez
 import csv # import the csv library to read csv files
 import requests # import the requests library to make HTTP requests
 import datetime # import the datetime library to work with dates and times
@@ -22,7 +23,7 @@ def create_subscriber(subscriber):
     response = requests.post(url + 'subscribers/bulk', headers=headers, json=data)
     return response.json()
 
-# Define function to send a message to all subscribers
+# Function to send a message to all subscribers
 def send_message(message):
     data = {
         "allSubscribers": True,

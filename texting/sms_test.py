@@ -1,3 +1,4 @@
+# Author: Karina Hernandez
 import requests
 import datetime
 import time
