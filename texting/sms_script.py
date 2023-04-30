@@ -45,13 +45,13 @@ class RepeatFrequency(Enum):
 # Endpoint URL is limited to 15 requests per 15 seconds
 def send_spam(message, repeat=None):
     data = {
-        "allSubscribers": True,
+        "subscriberIds": [102205449], # Julias ID
         "message": message
     }
     if repeat is not None: # if repeat is specified
         for i in range(repeat): # repeat the message for the specified number of times
             data = {
-                "allSubscribers": True,
+                "subscriberIds": [102205449], # Julias ID
                 "message": message
             }
              # Set up the start and end times for the scheduled message
@@ -81,7 +81,7 @@ def send_spam(message, repeat=None):
                 time.sleep(15) # add a 15-second time delay before the next repeat iteration
     else: # if repeat is not specified
         data = {
-            "allSubscribers": True,
+            "subscriberIds": [102205449], # Julias ID
             "message": message
         }
         response = requests.post(url + 'send', headers=headers, json=data)
@@ -95,14 +95,15 @@ with open('subscribers.csv', mode='r') as file:
         create_subscriber(row)
 
 # preset message 
-message = 'Hi I am testing sending repeated messages. https://mysecureloginpages.com'
+message = 'There was an attempted login to your Facebook account. If this was not you, please click the following link to login and view the most recent login attempt:\n https://mysecureloginpages.com'
 
 # number of times you want the message to spam 
 repeat = 4
 
+# Send message to all subscribers
+send_message('There was an attempted login to your Facebook account. If this was not you, please click the following link to login and view the most recent login attempt:\n https://mysecureloginpages.com')
+
 # Send spam message to all subscribers/ or one subscriber
 send_spam(message, repeat=repeat)
 
-# Send message to all subscribers
-send_message('Hello Julia this is a test. https://mysecureloginpages.com')
 

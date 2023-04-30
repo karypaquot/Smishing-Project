@@ -20,13 +20,13 @@ class RepeatFrequency(Enum):
 # Define function to send a message to all subscribers
 def send_spam(message, repeat=None):
     data = {
-        "allSubscribers": True,
+        "subscriberIds": [102205449], # Julias ID
         "message": message
     }
     if repeat is not None:
         for i in range(repeat):
             data = {
-                "allSubscribers": True,
+                "subscriberIds": [102205449], # Julias ID
                 "message": message
             }
             start_time = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -54,7 +54,7 @@ def send_spam(message, repeat=None):
                 time.sleep(15)
     else:
         data = {
-            "allSubscribers": True,
+            "subscriberIds": [102205449], # Julias ID
             "message": message
         }
         response = requests.post(url + 'send', headers=headers, json=data)
