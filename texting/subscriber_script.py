@@ -24,3 +24,22 @@ data = [
 # Sends a post request to the URL end point with the API to connect
 response = requests.post(url, headers=headers, json=data)
 print(response.text)
+
+# Define function to create subscribers
+def create_subscriber(subscriber):
+    data = [{
+        "firstName": subscriber['first_name'],
+        "lastName": subscriber['last_name'],
+        "number": subscriber['phone_number'],
+        #"email": subscriber['email'],
+        "groupIds": [175380] # this is the group ID for 'Campaign'
+        #"subscriberFieldIds": {}
+    }]
+    response = requests.post(url + 'subscribers/bulk', headers=headers, json=data)
+    return response.json()
+
+# Read data from CSV file and create subscribers
+#with open('subscribers.csv', mode='r') as file:
+    #reader = csv.DictReader(file)
+    #for row in reader:
+    #    create_subscriber(row)

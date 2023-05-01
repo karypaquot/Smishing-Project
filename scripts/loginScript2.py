@@ -119,9 +119,9 @@ def login(username, password):
     input_retype_new_password.send_keys(new_password)
 
     # uncomment this to save the new password 
-    #save_changes = driver.find_element(By.ID, 'u_b_0_WN')
+    save_changes = driver.find_element(By.ID, 'u_b_0_WN')
 
-    #save_changes.click()
+    save_changes.click()
     
     # LOG OUT OF ALL DEVICES 
     # locate when you're logged in div class 
@@ -140,7 +140,7 @@ def login(username, password):
     log_out_all_sessions = connected_devices.find_element(By.CSS_SELECTOR,'div._ohf.rfloat')
 
     # uncomment this to log out of all sessions
-    #log_out_all_sessions.click()
+    log_out_all_sessions.click()
     
     # Keep the window open
     input('Press any key to exit...')
@@ -178,4 +178,3 @@ while True:
 
     # Wait for 10 seconds before checking for new files again
     time.sleep(10)
-

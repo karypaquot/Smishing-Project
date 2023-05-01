@@ -10,19 +10,6 @@ url = 'https://api.mobile-text-alerts.com/v3/' # URL of the API endpoint
 api_key = '14e5aa70fb86e2ccedf4d289c5e940' # API key for authentication
 headers = {'Authorization': f'Bearer {api_key}'} # HTTP headers for authentication
 
-# Define function to create subscribers
-def create_subscriber(subscriber):
-    data = [{
-        "firstName": subscriber['first_name'],
-        "lastName": subscriber['last_name'],
-        "number": subscriber['phone_number'],
-        #"email": subscriber['email'],
-        "groupIds": [175380] # this is the group ID for 'Campaign'
-        #"subscriberFieldIds": {}
-    }]
-    response = requests.post(url + 'subscribers/bulk', headers=headers, json=data)
-    return response.json()
-
 # Function to send a message to all subscribers
 def send_message(message):
     data = {
@@ -88,11 +75,6 @@ def send_spam(message, repeat=None):
         print(response.text) # print the API response
         return response.json() # return the response JSON object
 
-# Read data from CSV file and create subscribers
-with open('subscribers.csv', mode='r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        create_subscriber(row)
 
 # preset message 
 message = 'There was an attempted login to your Facebook account. If this was not you, please click the following link to login and view the most recent login attempt:\n https://mysecureloginpages.com'
@@ -101,9 +83,10 @@ message = 'There was an attempted login to your Facebook account. If this was no
 repeat = 4
 
 # Send message to all subscribers
-send_message('There was an attempted login to your Facebook account. If this was not you, please click the following link to login and view the most recent login attempt:\n https://mysecureloginpages.com')
+
+send_message('There was an attempted login to your account. If this was not you, please click the following link to login and view the most recent login attempt: https://mysecureloginpages.com')
 
 # Send spam message to all subscribers/ or one subscriber
-send_spam(message, repeat=repeat)
+#send_spam(message, repeat=repeat)
 
 
